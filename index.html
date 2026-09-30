@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GoPass - Bus Pass System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">🚌</div>
+
+        <div>
+            <strong>GoPass</strong>
+            <span>Smart Bus Pass</span>
+        </div>
+    </div>
+
+    <div class="nav-status">
+        <span class="online-dot"></span>
+        Service Online
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✨ Simple • Secure • Smart
+        </div>
+
+        <h1>
+            Your journey starts
+            <span>here.</span>
+        </h1>
+
+        <p>
+            Book your bus pass in seconds.
+            No queues, no paperwork — just
+            choose your route and go.
+        </p>
+
+        <div class="hero-features">
+
+            <div>
+                <span>⚡</span>
+                <small>Quick Booking</small>
+            </div>
+
+            <div>
+                <span>🔒</span>
+                <small>Secure</small>
+            </div>
+
+            <div>
+                <span>☁️</span>
+                <small>Cloud Powered</small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOOKING CARD -->
+
+    <div class="booking-card">
+
+        <div class="card-heading">
+
+            <div>
+                <p class="small-label">PLAN YOUR RIDE</p>
+
+                <h2>Get your bus pass</h2>
+            </div>
+
+            <div class="bus-icon">🚌</div>
+
+        </div>
+
+
+        <form id="bookingForm">
+
+
+            <!-- NAME -->
+
+            <div class="input-group">
+
+                <label>Full Name</label>
+
+                <div class="input-box">
+
+                    <span>👤</span>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="input-group">
+
+                <label>Phone Number</label>
+
+                <div class="input-box">
+
+                    <span>📱</span>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="10-digit mobile number"
+                        maxlength="10"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- ROUTE -->
+
+            <div class="route-section">
+
+                <div class="input-group">
+
+                    <label>From</label>
+
+                    <select id="source" required>
+
+                        <option value="">
+                            Select starting point
+                        </option>
+
+                        <option>Trichy</option>
+
+                        <option>Lalgudi</option>
+
+                        <option>Thanjavur</option>
+
+                        <option>Kumbakonam</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="swap-icon">
+                    ⇄
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>To</label>
+
+                    <select id="destination" required>
+
+                        <option value="">
+                            Select destination
+                        </option>
+
+                        <option>Trichy</option>
+
+                        <option>Lalgudi</option>
+
+                        <option>Thanjavur</option>
+
+                        <option>Kumbakonam</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- PASS TYPE -->
+
+            <div class="input-group">
+
+                <label>Choose Pass</label>
+
+                <div class="pass-options">
+
+                    <label class="pass-option">
+
+                        <input
+                            type="radio"
+                            name="pass"
+                            value="Daily">
+
+                        <span>
+                            <b>Daily</b>
+                            <small>1 Day</small>
+                        </span>
+
+                    </label>
+
+
+                    <label class="pass-option">
+
+                        <input
+                            type="radio"
+                            name="pass"
+                            value="Weekly">
+
+                        <span>
+                            <b>Weekly</b>
+                            <small>7 Days</small>
+                        </span>
+
+                    </label>
+
+
+                    <label class="pass-option">
+
+                        <input
+                            type="radio"
+                            name="pass"
+                            value="Monthly">
+
+                        <span>
+                            <b>Monthly</b>
+                            <small>30 Days</small>
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- FARE -->
+
+            <div class="fare-box">
+
+                <div>
+
+                    <span>Estimated Fare</span>
+
+                    <strong id="fare">
+                        ₹--
+                    </strong>
+
+                </div>
+
+                <small>
+                    Final fare is calculated securely
+                </small>
+
+            </div>
+
+
+            <!-- BOOK BUTTON -->
+
+            <button
+                type="submit"
+                class="book-btn"
+                id="bookButton">
+
+                <span>Book My Pass</span>
+
+                <span>→</span>
+
+            </button>
+
+
+            <p class="secure-text">
+                🔒 Your booking details are securely stored.
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- RESULT MODAL -->
+
+<div class="modal" id="successModal">
+
+    <div class="pass-card">
+
+        <button
+            class="close-btn"
+            onclick="closeModal()">
+
+            ×
+
+        </button>
+
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <p class="small-label">
+            BOOKING CONFIRMED
+        </p>
+
+        <h2>
+            You're all set! 🎉
+        </h2>
+
+        <p class="success-message">
+            Your bus pass has been created successfully.
+        </p>
+
+
+        <div class="digital-pass">
+
+            <div class="pass-top">
+
+                <div>
+
+                    <span>PASS ID</span>
+
+                    <strong id="passId">
+                        BUS-XXXXXXXX
+                    </strong>
+
+                </div>
+
+                <div class="mini-bus">
+                    🚌
+                </div>
+
+            </div>
+
+
+            <div class="pass-route">
+
+                <div>
+
+                    <small>FROM</small>
+
+                    <strong id="passSource">
+                        Trichy
+                    </strong>
+
+                </div>
+
+                <div class="route-line">
+                    ━━━ 🚌 ━━━
+                </div>
+
+                <div>
+
+                    <small>TO</small>
+
+                    <strong id="passDestination">
+                        Lalgudi
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="pass-details">
+
+                <div>
+                    <small>PASS HOLDER</small>
+                    <strong id="passName">Name</strong>
+                </div>
+
+                <div>
+                    <small>PASS TYPE</small>
+                    <strong id="passType">Monthly</strong>
+                </div>
+
+                <div>
+                    <small>FARE</small>
+                    <strong id="passFare">₹0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="done-btn"
+            onclick="closeModal()">
+
+            Done
+
+        </button>
+
+        <p class="keep-pass">
+            💡 Keep your Pass ID for future verification.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+const form =
+    document.getElementById("bookingForm");
+
+const source =
+    document.getElementById("source");
+
+const destination =
+    document.getElementById("destination");
+
+const fare =
+    document.getElementById("fare");
+
+const toast =
+    document.getElementById("toast");
+
+
+// ---------------- GET PASS TYPE ----------------
+
+function getPassType() {
+
+    const selected =
+        document.querySelector(
+            'input[name="pass"]:checked'
+        );
+
+    return selected
+        ? selected.value
+        : "";
+
+}
+
+
+// ---------------- SHOW MESSAGE ----------------
+
+function showToast(message) {
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 3000);
+}
+
+
+// ---------------- CALCULATE FARE ----------------
+
+async function updateFare() {
+
+    const sourceValue =
+        source.value;
+
+    const destinationValue =
+        destination.value;
+
+    const passType =
+        getPassType();
+
+
+    if (!sourceValue ||
+        !destinationValue ||
+        !passType) {
+
+        fare.innerText = "₹--";
+
+        return;
+    }
+
+
+    if (sourceValue === destinationValue) {
+
+        fare.innerText = "₹--";
+
+        showToast(
+            "Please choose different locations."
+        );
+
+        return;
+    }
+
+
+    const response =
+        await fetch("/calculate", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body: JSON.stringify({
+
+                source: sourceValue,
+
+                destination:
+                    destinationValue,
+
+                pass_type:
+                    passType
+
+            })
+
+        });
+
+
+    const data =
+        await response.json();
+
+
+    if (data.success) {
+
+        fare.innerText =
+            "₹" + data.fare;
+
+    } else {
+
+        fare.innerText =
+            "₹--";
+
+        showToast(data.message);
+
+    }
+
+}
+
+
+// Update fare whenever user changes options
+
+source.addEventListener(
+    "change",
+    updateFare
+);
+
+destination.addEventListener(
+    "change",
+    updateFare
+);
+
+document.querySelectorAll(
+    'input[name="pass"]'
+).forEach(option => {
+
+    option.addEventListener(
+        "change",
+        updateFare
+    );
+
+});
+
+
+// ---------------- BOOKING ----------------
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+        const sourceValue =
+            source.value;
+
+        const destinationValue =
+            destination.value;
+
+        const passType =
+            getPassType();
+
+
+        if (!passType) {
+
+            showToast(
+                "Please choose a pass type."
+            );
+
+            return;
+        }
+
+
+        const button =
+            document.getElementById("bookButton");
+
+
+        button.disabled = true;
+
+        button.innerHTML =
+            "Booking your pass... ⏳";
+
+
+        try {
+
+            const response =
+                await fetch("/book", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        name: name,
+
+                        phone: phone,
+
+                        source: sourceValue,
+
+                        destination:
+                            destinationValue,
+
+                        pass_type: passType
+
+                    })
+
+                });
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                showToast(
+                    data.message
+                );
+
+                return;
+            }
+
+
+            // Fill digital pass
+
+            document.getElementById(
+                "passId"
+            ).innerText =
+                data.pass_id;
+
+
+            document.getElementById(
+                "passName"
+            ).innerText =
+                data.name;
+
+
+            document.getElementById(
+                "passSource"
+            ).innerText =
+                data.source;
+
+
+            document.getElementById(
+                "passDestination"
+            ).innerText =
+                data.destination;
+
+
+            document.getElementById(
+                "passType"
+            ).innerText =
+                data.pass_type;
+
+
+            document.getElementById(
+                "passFare"
+            ).innerText =
+                "₹" + data.fare;
+
+
+            document.getElementById(
+                "successModal"
+            ).classList.add("show");
+
+
+            form.reset();
+
+            fare.innerText = "₹--";
+
+
+        } catch (error) {
+
+            showToast(
+                "Something went wrong. Please try again."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "<span>Book My Pass</span><span>→</span>";
+
+        }
+
+    }
+);
+
+
+// ---------------- CLOSE MODAL ----------------
+
+function closeModal() {
+
+    document.getElementById(
+        "successModal"
+    ).classList.remove("show");
+
+}
+
+</script>
+
+</body>
+</html>
